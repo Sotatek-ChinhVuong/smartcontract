@@ -2,8 +2,9 @@
 pragma solidity ^0.8.0;
 import "./IERC720.sol";
 import "./Mintable.sol";
+import "./Ownable.sol";
 
-contract Token is IERC720, Mintable {
+contract Token is IERC720, Mintable, Ownable {
     mapping(address => uint256) private _balances;
     mapping(address => mapping(address => uint256)) private _allowances;
 
@@ -76,7 +77,7 @@ contract Token is IERC720, Mintable {
     }
 
     // Mintable 
-    function mint(address account, uint256 amount) external override onlyMinter() {
+    function mint(address account, uint256 amount) external override onlyMinter() onlyOwner() {
         _mint(account, amount);
     }
 
@@ -85,7 +86,7 @@ contract Token is IERC720, Mintable {
         _burn(msg.sender, amount);
     }
 
-    function burnFrom(address account,uint256 amount) external {
+    function burnFrom(address account,uint256 amount) external  {
         _burnFrom(account, amount);
     }
 
