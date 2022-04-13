@@ -77,7 +77,7 @@ contract Token is IERC720, Mintable, Ownable {
     }
 
     // Mintable 
-    function mint(address account, uint256 amount) external override onlyMinter() onlyOwner() {
+    function mint(address account, uint256 amount) external override onlyOwner() {
         _mint(account, amount);
     }
 
